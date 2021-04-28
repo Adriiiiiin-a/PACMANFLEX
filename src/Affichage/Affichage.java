@@ -28,13 +28,14 @@ public class Affichage extends Application{
 
     int[] compteurDeBoucle = {0,0,0,0};
     int[] direction = {0,0,0,0};
+
     @Override
     public void start(Stage stage)throws Exception{
         stage.setTitle("Preview PacmaFX");
         GridPane root = new GridPane();
         Partie p1 = new Partie();
         touche = new Touche(this, p1.pacman);
-//        test
+
         int x;
 
         for (int i = 0; i < 22; i++) {

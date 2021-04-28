@@ -29,11 +29,20 @@ public class Touche implements EventHandler<KeyEvent> {
                 }
                 break;
             case DOWN:
-                System.out.println("marche down");
+                if(Fonctions.estTraversable(Direction.BAS, this.joueur)){
+                    System.out.println("bas marche");
+                }
+                break;
             case RIGHT:
-                System.out.println("marche right");
+                if(Fonctions.estTraversable(Direction.DROITE, this.joueur)){
+                    System.out.println("droite marche");
+                }
+                break;
             case LEFT:
-                System.out.println("marche left");
+                if(Fonctions.estTraversable(Direction.GAUCHE, this.joueur)){
+                    System.out.println("gauche marche");
+                }
+                break;
         }
     }
 }
