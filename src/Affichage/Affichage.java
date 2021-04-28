@@ -4,6 +4,7 @@ import Jeu.Pacman;
 import Jeu.Partie;
 import Jeu.Fantome;
 import Jeu.Touche;
+import Outils.Direction;
 import Outils.Entites;
 import javafx.animation.*;
 import javafx.application.Application;
@@ -25,6 +26,8 @@ import static java.lang.Thread.sleep;
 public class Affichage extends Application{
 
     Fantome[] tabFantome;
+
+    Pacman pac;
     Touche touche;
 
     int[] compteurDeBoucle = {0,0,0,0};
@@ -52,6 +55,14 @@ public class Affichage extends Application{
                     FileInputStream input = new FileInputStream("externes/images/FOND_BLANC.png");
                     Image image = new Image(input,20,20 ,true,true);
                     iv.setImage(image);
+                } else if (actualEntite.equals(Entites.GROS_BONBON)){
+                    FileInputStream input = new FileInputStream("externes/images/GBBN.png");
+                    Image image = new Image(input,20,20 ,true,true);
+                    iv.setImage(image);
+                }else if (actualEntite.equals(Entites.BONBON)){
+                    FileInputStream input = new FileInputStream("externes/images/PBBN.png");
+                    Image image = new Image(input,20,20 ,true,true);
+                    iv.setImage(image);
                 }
                 else{
                     FileInputStream inputN = new FileInputStream("externes/images/FOND_NOIR.png");
@@ -68,11 +79,15 @@ public class Affichage extends Application{
 
         tabFantome = p1.getFantome();
 
+        pac = p1.getPacman();
+
+
+
         root.add(tabFantome[0].getFantome(), tabFantome[0].getSpawnX(), tabFantome[0].getSpawnY());
         root.add(tabFantome[1].getFantome(), tabFantome[1].getSpawnX(), tabFantome[1].getSpawnY());
         root.add(tabFantome[2].getFantome(), tabFantome[2].getSpawnX(), tabFantome[2].getSpawnY());
         root.add(tabFantome[3].getFantome(), tabFantome[3].getSpawnX(), tabFantome[3].getSpawnY());
-        root.add(p1.pacman, p1.pacman.coordonees[0],p1.pacman.coordonees[1]);
+        root.add(pac.getImPac(), p1.pacman.coordonees[0],p1.pacman.coordonees[1]);
 
         stage.show();
         new AnimationTimer() {
@@ -100,6 +115,11 @@ public class Affichage extends Application{
                             case (3) -> tabFantome[j].getFantome().setTranslateY(-20);
                             default -> System.out.println("Error:" + t);
                         }
+
+
+
+
+
 //                        direction[j] = t;
 //                        compteurDeBoucle[j]++;
 //                    }
@@ -115,6 +135,32 @@ public class Affichage extends Application{
 //                        }
 //                    }
                 }
+
+                //
+                Direction dernier = touche.lastTouche;
+                System.out.println(dernier);
+
+
+
+                switch (dernier){
+
+                    case BAS -> pac.getImPac().setTranslateY(-1);
+                    case HAUT -> pac.getImPac().setTranslateY(+1);
+                    case DROITE -> pac.getImPac().setTranslateX(+1);
+                    case GAUCHE -> pac.getImPac().setTranslateX(-1);
+                    default -> System.out.println("ERREUR");
+
+
+                }
+
+
+
+
+
+
+
+
+
 //                sleep(1000);
                 try {
                     TimeUnit.MILLISECONDS.sleep(400);

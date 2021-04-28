@@ -1,6 +1,7 @@
 package Jeu;
 
 import Outils.Constantes;
+import Outils.Direction;
 import Outils.Entites;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -91,7 +92,7 @@ public class Partie implements Observable, Runnable{
 
                 switch (ch) {
                     case '0':
-                        convert = Entites.VIDE;
+                        convert = Entites.BONBON;
                         break;
                     case '1':
                         convert = Entites.MUR;
@@ -104,6 +105,9 @@ public class Partie implements Observable, Runnable{
                         break;
                     case '4':
                         convert = Entites.TELEPORT;
+                        break;
+                    case '5':
+                        convert = Entites.GROS_BONBON;
                         break;
 
 
@@ -140,11 +144,21 @@ public class Partie implements Observable, Runnable{
     public Fantome[] getFantome(){
         return new Fantome[]{this.fantome1, this.fantome2, this.fantome3, this.fantome4};
     }
+    public Pacman getPacman(){return this.pacman;}
 
-    @Override
+
+
+
+
+        @Override
     public void run() {
         return;
     }
+
+
+
+
+
 
     @Override
     public void addListener(InvalidationListener invalidationListener) {

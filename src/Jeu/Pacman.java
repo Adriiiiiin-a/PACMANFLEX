@@ -2,6 +2,7 @@ package Jeu;
 
 import Outils.Constantes;
 import Outils.Constantes.*;
+import Outils.Direction;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -36,15 +37,15 @@ public class Pacman {
         this.imPac.setImage(image);
     }
 
-
-
-
-    public void movePacman(){
-
-
-
-
-
+    public ImageView getImPac() {
+        return imPac;
     }
 
+    public void setCoordonees(int[] coordonees) {
+        this.coordonees = coordonees;
+    }
+
+
 }
+
+

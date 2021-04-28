@@ -2,7 +2,7 @@ package Outils;
 
 public class Constantes {
 
-    private static int[] coordonneesSpawnJoueur = {0,0};
+    private static int[] coordonneesSpawnJoueur = {1,1};
 
     public static int[] getCoordonneesSpawnJoueur() {
         return coordonneesSpawnJoueur;
