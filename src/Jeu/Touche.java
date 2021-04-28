@@ -23,6 +23,7 @@ public class Touche implements EventHandler<KeyEvent> {
         switch (entre.getCode()) {
             case ENTER:
                 System.out.println("marche Entrer");
+                break;
             case UP:
                 if(Fonctions.estTraversable(Direction.HAUT, this.joueur)){
                     System.out.println("haut marche");
