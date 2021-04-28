@@ -2,9 +2,11 @@ package Affichage;
 
 import Jeu.Pacman;
 
+import java.io.FileNotFoundException;
+
 public class testPacman {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
 
         Pacman pac = new Pacman();
 

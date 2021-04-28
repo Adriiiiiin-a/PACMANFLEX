@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javafx.animation.AnimationTimer;
 import javafx.util.Duration;
@@ -34,7 +35,7 @@ public class Affichage extends Application{
         stage.setTitle("Preview PacmaFX");
         GridPane root = new GridPane();
         Partie p1 = new Partie();
-        touche = new Touche(this, p1.pacman);
+        touche = new Touche(this, p1);
 
         int x;
 
@@ -71,13 +72,19 @@ public class Affichage extends Application{
         root.add(tabFantome[1].getFantome(), tabFantome[1].getSpawnX(), tabFantome[1].getSpawnY());
         root.add(tabFantome[2].getFantome(), tabFantome[2].getSpawnX(), tabFantome[2].getSpawnY());
         root.add(tabFantome[3].getFantome(), tabFantome[3].getSpawnX(), tabFantome[3].getSpawnY());
+        root.add(p1.pacman, p1.pacman.coordonees[0],p1.pacman.coordonees[1]);
 
         stage.show();
         new AnimationTimer() {
 
+            int count = 0;
+
 
             @Override
             public void handle(long now){
+
+                count += 1;
+                System.out.println(count);
 
 
                 for (int j = 0; j < 4; j++) {
@@ -109,6 +116,11 @@ public class Affichage extends Application{
 //                    }
                 }
 //                sleep(1000);
+                try {
+                    TimeUnit.MILLISECONDS.sleep(400);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
 
