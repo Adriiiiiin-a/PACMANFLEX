@@ -34,7 +34,7 @@ public class Affichage extends Application{
         GridPane root = new GridPane();
         Partie p1 = new Partie();
         touche = new Touche(this, p1.pacman);
-
+//        test
         int x;
 
         for (int i = 0; i < 22; i++) {
