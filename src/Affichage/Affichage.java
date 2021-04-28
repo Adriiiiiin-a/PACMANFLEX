@@ -1,9 +1,6 @@
 package Affichage;
 
-import Jeu.Pacman;
-import Jeu.Partie;
-import Jeu.Fantome;
-import Jeu.Touche;
+import Jeu.*;
 import Outils.Direction;
 import Outils.Entites;
 import javafx.animation.*;
@@ -13,8 +10,10 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -29,13 +28,14 @@ public class Affichage extends Application{
 
     Pacman pac;
     Touche touche;
+    Direction dernier;
 
     int[] compteurDeBoucle = {0,0,0,0};
     int[] direction = {0,0,0,0};
 
     @Override
     public void start(Stage stage)throws Exception{
-        stage.setTitle("Preview PacmaFX");
+        stage.setTitle("Preview PacmanFX");
         GridPane root = new GridPane();
         Partie p1 = new Partie();
         touche = new Touche(this, p1);
@@ -81,6 +81,8 @@ public class Affichage extends Application{
 
         pac = p1.getPacman();
 
+        dernier = Direction.DROITE;
+
 
 
         root.add(tabFantome[0].getFantome(), tabFantome[0].getSpawnX(), tabFantome[0].getSpawnY());
@@ -89,8 +91,10 @@ public class Affichage extends Application{
         root.add(tabFantome[3].getFantome(), tabFantome[3].getSpawnX(), tabFantome[3].getSpawnY());
         root.add(pac.getImPac(), p1.pacman.coordonees[0],p1.pacman.coordonees[1]);
 
+
         stage.show();
         new AnimationTimer() {
+
 
             int count = 0;
 
@@ -137,33 +141,97 @@ public class Affichage extends Application{
                 }
 
                 //
-                Direction dernier = touche.lastTouche;
+
                 System.out.println(dernier);
+
+
+                //if(Fonctions.estTraversable(touche.lastTouche, p1)){
+                    dernier = touche.lastTouche;
+                //}
+
+
+
 
 
 
                 switch (dernier){
 
-                    case BAS -> pac.getImPac().setTranslateY(-1);
-                    case HAUT -> pac.getImPac().setTranslateY(+1);
-                    case DROITE -> pac.getImPac().setTranslateX(+1);
-                    case GAUCHE -> pac.getImPac().setTranslateX(-1);
+                    case BAS -> {
+                        try {
+                            pac.movePacman(dernier, p1);
+                            if(Fonctions.estTraversable(dernier, p1)) {
+
+                                pac.getImPac().setTranslateY(pac.coordonees[1] * 20);
+                            }else{
+                                System.out.println("BLOQUE");
+                            }
+                            System.out.println("Va bas");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                    case HAUT -> {
+                        try {
+                            pac.movePacman(dernier, p1);
+                            if(Fonctions.estTraversable(dernier, p1)) {
+                                pac.getImPac().setTranslateY(pac.coordonees[1] * -20);
+                            }else{
+                                System.out.println("BLOQUE");
+                            }
+                            System.out.println("Va haut");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                    case DROITE -> {
+                        try {
+                            pac.movePacman(dernier, p1);
+                            if(Fonctions.estTraversable(dernier, p1)) {
+                                pac.getImPac().setTranslateX(pac.coordonees[0] * 20);
+                            }else{
+                                System.out.println("BLOQUE");
+                            }
+                            System.out.println("Va droite");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
+                    case GAUCHE -> {
+                        try {
+                            pac.movePacman(dernier, p1);
+                            if(Fonctions.estTraversable(dernier, p1)) {
+                                pac.getImPac().setTranslateX(pac.coordonees[0] * -20);
+                            }else{
+                                System.out.println("BLOQUE");
+                            }
+                            System.out.println("Va gauche");
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+                    }
                     default -> System.out.println("ERREUR");
-
-
                 }
 
+                boolean cond = pac.isTP();
+
+                if (cond){
+
+                    switch (dernier){
+
+                        case DROITE -> {pac.getImPac().setTranslateX(-21);break;}
+                        case GAUCHE -> {pac.getImPac().setTranslateX(21);break;}
+                        default -> System.out.println("ERREUR CHANGEMENT DIR");
+                    }
+                }
+                System.out.println(pac.coordonees[0] + " " +  pac.coordonees[1]);
 
 
-
-
-
-
-
-
-//                sleep(1000);
                 try {
-                    TimeUnit.MILLISECONDS.sleep(400);
+                    TimeUnit.MILLISECONDS.sleep(1000/10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -175,6 +243,8 @@ public class Affichage extends Application{
     public static void main(String[] args){
         launch(args);
     }
+
+
 }
 
 

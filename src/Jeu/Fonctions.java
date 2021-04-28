@@ -11,72 +11,70 @@ public class Fonctions {
 
         Entites[][] grille = partie.getGrille();
 
-        switch (dir) {
-            case HAUT:
-                //System.out.println("haut");
-                if ((initY + 1) <= 22) {
+        Entites nextEntite = nextCase(dir, partie);
+        System.out.println(nextEntite);
 
-                    if (!(grille[initX][initY+1]).equals(Entites.MUR) || !(grille[initX][initY+1]).equals(Entites.PORTE)) {
+        if(nextEntite.equals(Entites.BONBON) ||nextEntite.equals(Entites.GROS_BONBON) || nextEntite.equals(Entites.VIDE)||nextEntite.equals(Entites.FANTOME) || nextEntite.equals(Entites.TELEPORT) ||nextEntite.equals(Entites.FANTOME)){
+            System.out.println("ABLE");
+            return true;
+        }
 
-                        System.out.println("Traversable !");
 
-                        return true;
 
-                    }
+        return false;
+    }
 
-                    return false;
-                }
-                System.out.println("Non traversable");
-                break;
-            case BAS:
-                //System.out.println("bas");
-                if ((initY - 1) >= 0) {
 
-                    if (!(grille[initX][initY-1]).equals(Entites.MUR) || !(grille[initX][initY-1]).equals(Entites.PORTE)) {
+    public static Entites nextCase(Direction dir, Partie p){
 
-                        System.out.println("Traversable !");
+        Entites[][] grille = p.getGrille();
 
-                        return true;
+        int X = p.pacman.coordonees[0];
+        int Y = p.pacman.coordonees[1];
 
-                    }
+        switch(dir){
 
-                    return false;
-                }
-                System.out.println("Non traversable");
-                break;
-            case DROITE:
-                //System.out.println("droite");
-                if ((initX + 1) <= 22) {
+            case GAUCHE -> {
+                return grille[X-1][Y];
 
-                    if (!(grille[initX+1][initY]).equals(Entites.MUR) || !(grille[initX+1][initY]).equals(Entites.PORTE)) {
+            }
+            case DROITE -> {
+                return grille[X+1][Y];
 
-                        System.out.println("Traversable !");
+            }
+            case BAS -> {
+                System.out.println(X + " " + Y);
+                return grille[X][Y+1];
 
-                        return true;
+            }
+            case HAUT -> {
+                return grille[X][Y-1];
 
-                    }
-                    return false;
+            }
+            default -> System.out.println("ERREUR RETOUR DIR");
 
-                }
-                System.out.println("Non traversable");
-                break;
-            case GAUCHE:
-                //System.out.println("gauche");
-                if ((initX - 1) >= 0) {
+        }
+        return grille[X][Y];
 
-                    if (!(grille[initX-1][initY]).equals(Entites.MUR) || !(grille[initX-1][initY]).equals(Entites.PORTE)) {
 
-                        System.out.println("Traversable !");
 
-                        return true;
+    }
 
-                    }
+    public static boolean isBonbon(Direction dir, Partie p){
 
-                    return false;
-                }
-                System.out.println("Non traversable");
-                break;
+        if(nextCase(dir, p).equals(Entites.BONBON)){
+            return true;
         }
         return false;
     }
+
+    public boolean isGrosBonbon(Direction dir, Partie p){
+
+        if(nextCase(dir, p).equals(Entites.GROS_BONBON)){
+            return true;
+        }
+        return false;
+    }
+
+
 }

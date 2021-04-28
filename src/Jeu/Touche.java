@@ -33,31 +33,20 @@ public class Touche implements EventHandler<KeyEvent> {
 
                 break;
             case UP:
-                if(Fonctions.estTraversable(Direction.HAUT, this.partie)){
-                    System.out.println("haut marche");
+                System.out.println("TOUCHE HAUT");
                     this.lastTouche = Direction.HAUT;
-                }
                 break;
             case DOWN:
-                if(Fonctions.estTraversable(Direction.BAS, this.partie)){
-                    System.out.println("bas marche");
+                System.out.println("TOUCHE BAS");
                     this.lastTouche = Direction.BAS;
-                }
                 break;
             case RIGHT:
-                if(Fonctions.estTraversable(Direction.DROITE, this.partie)){
-                    System.out.println("droite marche");
+                System.out.println("TOUCHE DROITE");
                     this.lastTouche = Direction.DROITE;
-                }
                 break;
             case LEFT:
-                if(Fonctions.estTraversable(Direction.GAUCHE, this.partie)){
-                    System.out.println("gauche marche");
-
+                System.out.println("TOUCHE GAUCHE");
                     this.lastTouche = Direction.GAUCHE;
-
-
-                }
                 break;
         }
 
