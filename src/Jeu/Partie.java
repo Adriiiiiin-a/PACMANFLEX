@@ -117,7 +117,7 @@ public class Partie implements Observable, Runnable{
 
                 }
 
-                toReturn[y][x] = convert;
+                toReturn[x][y] = convert;
 
                 //System.out.print(toReturn[x][y] + " ");
 

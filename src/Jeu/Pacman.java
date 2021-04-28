@@ -54,7 +54,7 @@ public class Pacman {
 
             if(Fonctions.isBonbon(dir, p)){
                 this.score += 10;
-                p.getGrille()[this.coordonees[0]][this.coordonees[1]] = Entites.VIDE;
+                p.getGrille()[this.coordonees[0]][this.coordonees[1]] = Entites.MANGE;
 
 
             }
@@ -62,10 +62,10 @@ public class Pacman {
 
 
             switch(dir){
-                case DROITE -> {this.coordonees[0] += 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_DROITE.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
-                case GAUCHE -> {this.coordonees[0] -= 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_GAUCHE.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
-                case HAUT -> {this.coordonees[1] -= 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_HAUT.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
-                case BAS -> {this.coordonees[1] += 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_BAS.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
+                case DROITE -> {this.coordonees[1] += 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_DROITE.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
+                case GAUCHE -> {this.coordonees[1] -= 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_GAUCHE.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
+                case HAUT -> {this.coordonees[0] -= 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_HAUT.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
+                case BAS -> {this.coordonees[0] += 1;FileInputStream png = new FileInputStream("externes/images/PACMAN_BAS.png"); Image image = new Image(png, 20, 20, true, true);this.imPac.setImage(image);break;}
                 default -> System.out.println("ERREUR DIRECTION");
 
             }
@@ -92,12 +92,12 @@ public class Pacman {
 
         if (this.coordonees.equals(tab1)|| this.coordonees.equals(tab2)) {
 
-            this.coordonees[0] = 21;
+            this.coordonees[1] = 21;
             return true;
 
         }else if (this.coordonees.equals(tab3)|| this.coordonees.equals(tab4)){
 
-            this.coordonees[0] = 1;
+            this.coordonees[1] = 1;
             return true;
         }
 

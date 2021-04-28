@@ -44,7 +44,7 @@ public class Affichage extends Application{
 
         for (int i = 0; i < 22; i++) {
             for (x = 0; x<22;x++) {
-                Entites actualEntite = p1.getGrille()[i][x];
+                Entites actualEntite = p1.getGrille()[x][i];
 //                System.out.println(actualEntite);
                 ImageView iv = new ImageView();
                 if (actualEntite.equals(Entites.MUR)){
@@ -101,6 +101,9 @@ public class Affichage extends Application{
 
             @Override
             public void handle(long now){
+
+                p1.afficheGrille(p1.getGrille());
+
 
                 count += 1;
                 System.out.println(count);
@@ -161,11 +164,12 @@ public class Affichage extends Application{
                             pac.movePacman(dernier, p1);
                             if(Fonctions.estTraversable(dernier, p1)) {
 
-                                pac.getImPac().setTranslateY(pac.coordonees[1] * 20);
+                                pac.getImPac().setTranslateY(pac.coordonees[0] * 20);
+                                System.out.println("Va bas");
                             }else{
                                 System.out.println("BLOQUE");
                             }
-                            System.out.println("Va bas");
+
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -175,11 +179,12 @@ public class Affichage extends Application{
                         try {
                             pac.movePacman(dernier, p1);
                             if(Fonctions.estTraversable(dernier, p1)) {
-                                pac.getImPac().setTranslateY(pac.coordonees[1] * -20);
+                                pac.getImPac().setTranslateY(pac.coordonees[0] * -20);
+                                System.out.println("Va haut");
                             }else{
                                 System.out.println("BLOQUE");
                             }
-                            System.out.println("Va haut");
+
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -189,11 +194,12 @@ public class Affichage extends Application{
                         try {
                             pac.movePacman(dernier, p1);
                             if(Fonctions.estTraversable(dernier, p1)) {
-                                pac.getImPac().setTranslateX(pac.coordonees[0] * 20);
+                                pac.getImPac().setTranslateX(pac.coordonees[1] * 20);
+                                System.out.println("Va droite");
                             }else{
                                 System.out.println("BLOQUE");
                             }
-                            System.out.println("Va droite");
+
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -203,11 +209,12 @@ public class Affichage extends Application{
                         try {
                             pac.movePacman(dernier, p1);
                             if(Fonctions.estTraversable(dernier, p1)) {
-                                pac.getImPac().setTranslateX(pac.coordonees[0] * -20);
+                                pac.getImPac().setTranslateX(pac.coordonees[1] * -20);
+                                System.out.println("Va gauche");
                             }else{
                                 System.out.println("BLOQUE");
                             }
-                            System.out.println("Va gauche");
+
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
@@ -231,12 +238,15 @@ public class Affichage extends Application{
 
 
                 try {
-                    TimeUnit.MILLISECONDS.sleep(1000/10);
+                    TimeUnit.MILLISECONDS.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }.start();
+
+        p1.afficheGrille(p1.getGrille());
+        System.out.println(pac.score);
 
 
     }
