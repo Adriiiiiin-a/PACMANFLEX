@@ -5,14 +5,18 @@ import Jeu.Partie;
 import Outils.Entites;
 import javafx.application.Application;
 import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.awt.*;
 import java.io.FileInputStream;
 import java.net.URL;
 import java.util.Objects;
@@ -21,7 +25,7 @@ public class FenetreArthur extends Application {
 
     Scene sceneJeu, sceneMenu, sceneRecord, sceneOption;
     final int WIDTH = 782;
-    final int HEIGHT =  440;
+    final int HEIGHT =  465;
     Fantome[] tabFantome;
 
     @Override
@@ -74,8 +78,13 @@ public class FenetreArthur extends Application {
         root.add(buttonOption,1,4);
 
 
+
+
         sceneMenu = new Scene(root, 300, 250);
- //       sceneMenu.getStylesheets().add(getClass().getResource("stylePacman.css").toExternalForm());
+
+
+
+
 
         // Page de jeu
 
@@ -119,37 +128,112 @@ public class FenetreArthur extends Application {
 
 
 
-        Label label1 = new Label("Ici ce trouvera la page de jeu ");
-        VBox layout = new VBox();
 
-        Button buttonJeu= new Button("Menu principale");
+        Button buttonJeu= new Button("Maison");
         buttonJeu.setOnAction(e -> primaryStage.setScene(sceneMenu));
-        layout.getChildren().addAll(label1,buttonJeu);
-        sceneJeu = new Scene(game,500,550);
+
+
+        GridPane grid = new GridPane();
+        grid.add(game,0,0);
+
+        GridPane gridPause = new GridPane();
+        gridPause.setId("gridPause");
+        GridPane.setHalignment(buttonJeu,HPos.RIGHT);
+        GridPane.setValignment(buttonJeu, VPos.TOP);
+        gridPause.add(buttonJeu,0,0);
+
+
+        Button buttonPause = new Button("Pause");
+
+        GridPane.setHalignment(buttonPause,HPos.LEFT);
+        GridPane.setValignment(buttonPause, VPos.TOP);
+        gridPause.add(buttonPause,0,0);
+
+
+        Rectangle rectangleNom = new Rectangle(220,60);
+        rectangleNom.setId("rectangle");
+        rectangleNom.setStrokeWidth(3);
+        rectangleNom.setFill(Color.YELLOW);
+        GridPane.setHalignment(rectangleNom, HPos.CENTER);
+        gridPause.add(rectangleNom,0,1);
+
+        /*        Label labelNom = new Label("Liam");
+        labelNom.setTextFill(Color.YELLOW);
+        GridPane.setHalignment(labelNom, HPos.CENTER);
+        gridPause.add(labelNom,0,1);*/
+
+
+
+
+
+
+        ColumnConstraints columnPause = new ColumnConstraints(342);
+        gridPause.getColumnConstraints().add(columnPause);
+
+        for(int i=0; i<5;i++){
+            RowConstraints row = new RowConstraints(88);
+            gridPause.getRowConstraints().add(row);
+        }
+
+
+
+        grid.add(gridPause,1,0);
+
+
+
+        game.setGridLinesVisible(true);
+        grid.setGridLinesVisible(true);
+        gridPause.setGridLinesVisible(true);
+
+
+        sceneJeu = new Scene(grid,500,550);
+
+        // Fin de page jeu
+
+
+
+
 
         //  Page Record
 
 
 
+        GridPane gridRecord = new GridPane();
+        gridRecord.setId("pane");
+
+
+        for(int i=0;i<3;i++){
+            ColumnConstraints column = new ColumnConstraints(260);//460
+            gridRecord.getColumnConstraints().add(column);
+        }
+
+        for(int i=0;i<6;i++){
+            RowConstraints row = new RowConstraints(73);//110
+            gridRecord.getRowConstraints().add(row);
+        }
 
 
 
-
-        Label label2= new Label("Ici sera la scène record ");
         Button button2= new Button("Menu principale");
+        button2.setId("button");
+        button2.setStyle("-fx-font: 22 arial; -fx-base: #b6e7c9;");
+        GridPane.setHalignment(button2,HPos.CENTER);
         button2.setOnAction(e -> primaryStage.setScene(sceneMenu));
-        VBox layout2= new VBox(20);
-        layout2.getChildren().addAll(label2, button2);
-        sceneRecord= new Scene(layout2,300,250);
+
+        gridRecord.add(button2,1,4);
+
+        sceneRecord= new Scene(gridRecord,300,350);
 
 
 
-     //   sceneMenu.getStylesheets().add(getClass().getResource("stylePacman.css").toExternalForm());
- //       final URL cssURL = getClass().getResource("stylePacman.css");
-        System.out.println(getClass().getResource("menuPrincipal.png"));
- //       assert cssURL != null;
-    //    sceneMenu.getStylesheets().add(cssURL.toExternalForm());
+
+
+
+        sceneMenu.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+        sceneRecord.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+
         primaryStage.setScene(sceneMenu);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
